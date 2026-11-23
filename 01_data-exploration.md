@@ -226,12 +226,100 @@ Output:
 (6500, 14)
 ```
 
-### 1.5.4 Check duplicate values
+### 1.5.4 Check the merged dataset information
 ```python
-# Check for duplicate customer IDs
-churn_df['customer_id'].duplicated().sum()
+churn_df.info()
 ```
 Output:
 ```
-0
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 6500 entries, 0 to 6499
+Data columns (total 14 columns):
+ #   Column              Non-Null Count  Dtype 
+---  ------              --------------  ----- 
+ 0   customer_id         6500 non-null   int64 
+ 1   telecom_partner     6500 non-null   object
+ 2   gender              6500 non-null   object
+ 3   age                 6500 non-null   int64 
+ 4   state               6500 non-null   object
+ 5   city                6500 non-null   object
+ 6   pincode             6500 non-null   int64 
+ 7   registration_event  6500 non-null   object
+ 8   num_dependents      6500 non-null   int64 
+ 9   estimated_salary    6500 non-null   int64 
+ 10  calls_made          6500 non-null   int64 
+ 11  sms_sent            6500 non-null   int64 
+ 12  data_used           6500 non-null   int64 
+ 13  churn               6500 non-null   int64 
+dtypes: int64(9), object(5)
+memory usage: 761.7+ KB
+```
+
+### 1.5.5 Verify the merge
+```python
+# Check whether all customer IDs are unique
+churn_df['customer_id'].is_unique
+```
+Output:
+```
+True
+```
+
+## 1.6 Calculate the proportion of customers who churned
+The project specifically asks us to calculate the proportion of customers who have churned.
+
+Our target column is `churn`:
+- `1` = Customer churned.
+- `0` = Customer did not churn.
+
+### 1.6.1 Count customers in each churn category
+```python
+churn_df['churn'].value_counts()
+```
+This tells us how many customers belong to each category.
+
+Output:
+| index | churn |
+|---:|---:|
+| 0 | 5197 |
+| 1 | 1303 |
+
+### 1.6.2 Calculate the churn proportion
+```python
+churn_df['churn'].value_counts(normalize=True)
+```
+The `normalize=True` argument returns proportions instead of raw counts.
+
+Output:
+| index | churn |
+|---:|---:|
+| 0 | 0.7995384615 |
+| 1 | 0.2004615385 |
+
+Alternatively:
+```python
+churn_df['churn'].mean()
+```
+This works because churn is a binary variable containing only 0 and 1.
+For example, if the result is 0.35, it means 35% of customers have churned.
+
+Output:
+```
+0.20046153846153847
+```
+
+### 1.6.3 Visualize the churn distribution
+```python
+churn_df['churn'].value_counts().plot(
+    kind='bar',
+    title='Customer Churn Distribution',
+    xlabel='Churn Status',
+    ylabel='Number of Customers'
+)
+```
+This helps us understand whether the dataset is balanced or imbalanced.
+
+Output:
+```
+<AxesSubplot: title={'center': 'Customer Churn Distribution'}, xlabel='Churn Status', ylabel='Number of Customers'>
 ```

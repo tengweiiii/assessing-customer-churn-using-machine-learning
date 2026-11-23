@@ -126,7 +126,7 @@ Output:
 (6500, 46)
 ```
 
-> Important improvement for a production-quality workflow: We are demonstrating the requested preprocessing steps here, but fitting the encoder and scaler on the entire dataset before train-test splitting introduces data leakage. We will correct this by fitting preprocessing on training data only when we build the final modelling pipeline.
+**Important improvement for a production-quality workflow**: We are demonstrating the requested preprocessing steps here, but fitting the encoder and scaler on the entire dataset before train-test splitting introduces data leakage. We will correct this by fitting preprocessing on training data only when we build the final modelling pipeline.
 
 ## 2.6 Define the target variable
 Our target variable is `churn`.

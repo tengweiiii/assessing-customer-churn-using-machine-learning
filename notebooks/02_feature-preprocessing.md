@@ -27,6 +27,7 @@ Our merged dataset contains 14 columns.
 | `churn` | Target | Target variable |
 
 **Why exclude certain columns?**
+
 - `customer_id`: Only identifies customers. It does not represent customer behaviour.
 - `pincode`: A location code, not a continuous numerical measurement.
 - `registration_event`: A date stored as text. We would need to engineer meaningful date features before using it.
@@ -83,6 +84,7 @@ encoded_features = encoder.fit_transform(
 ```
 
 **Why `handle_unknown='ignore'`?**
+
 It prevents errors if the encoder encounters a category that it has not seen before.
 For example, if a new telecom partner appears in future data, the encoder can handle it without raising an error.
 
@@ -174,9 +176,7 @@ For example, if your categorical columns contain:
 Therefore:
 
 $$
-\[
 6 + 40 = 46
-\]
 $$
 
 This explains your output.

@@ -1,9 +1,9 @@
-# 1.0 Data Exploration
+# 1.0 Data Loading and Exploration
 ## Understand the project objective
-Our goal is to predict whether a telecom customer will leave their current telecom provider
+Our goal is to predict whether a telecom customer will leave their current telecom provider.
 
 We will compare two classification algorithms:
-1. **Logistic Regression**: Predicts the probability of a customer churning
+1. **Logistic Regression**: Predicts the probability of a customer churning.
 2. **Random Forest Classifier**: Uses multiple decision trees to make predictions.
 
 Our final objective is to determine which model achieves the higher accuracy score.
@@ -325,3 +325,67 @@ Output:
 ```
 
 ![Customer Churn Distribution](/images/customer-churn-distribution.png)
+
+## 1.7 Identify categorical variables
+The project also requires us to identify categorical variables in churn_df.
+
+Categorical variables represent groups or labels rather than measurable numerical quantities.
+
+Based on the initial dataset inspection, we can identify:
+| Variable | Description |
+|---|---|
+| `telecom_partner` | Telecom provider |
+| `gender` | Customer gender |
+| `state` | Customer state |
+| `city` | Customer city |
+| `registration_event` | Registration date |
+
+We can identify these columns programmatically.
+```python
+# Identify categorical columns
+categorical_cols = churn_df.select_dtypes(
+    include=['object']
+).columns.tolist()
+
+print(categorical_cols)
+```
+Output:
+```
+['telecom_partner', 'gender', 'state', 'city', 'registration_event']
+```
+`registration_event` is currently an object column, so it will appear in this list. We will consider its treatment during preprocessing.
+
+## 1.8 Review findings
+### 1.8.1 Merged dataset
+| Item | Result |
+|---|---:|
+| Total customers | 6,500 |
+| Total columns | 14 |
+| Missing values | 0 |
+| Unique customer IDs | True |
+
+The merged dataset contains all 6,500 customers, with no duplicate customer IDs.
+
+### 1.8.2 Churn distribution
+| Churn | Customers | Proportion |
+|---|---:|---:|
+| 0 (Not churned) | 5,197 | 79.95% |
+| 1 (Churned) | 1,303 | 20.05% |
+| **Total** | **6,500** | **100%** |
+
+Approximately 80% of customers have stayed, while 20% have churned.
+
+**Why does this matter?**
+
+A model could achieve approximately 80% accuracy simply by predicting that every customer will stay.
+
+Therefore, when evaluating our models later, we should also examine the classification report and confusion matrix rather than relying entirely on accuracy.
+
+We will still follow the project's requirement to compare accuracy scores.
+
+### 1.8.3 Categorical variables
+```
+['telecom_partner', 'gender', 'state', 'city', 'registration_event']
+```
+* `telecom_partner`, `gender`, `state`, and `city` are categorical features.
+* `registration_event` is a date stored as text. It should not automatically be treated as an ordinary category.

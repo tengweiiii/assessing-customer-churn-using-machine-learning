@@ -161,3 +161,77 @@ Output:
 Demographics duplicates: 0
 Usage duplicates: 0
 ```
+
+## 1.4 Review data exploration findings
+### 1.4.1 Dataset overview 
+
+| Inspection | Demographics | Usage |
+|---|---:|---:|
+| Rows | 6,500 | 6,500 |
+| Columns | 10 | 5 |
+| Missing values | 0 | 0 |
+| Duplicate rows | 0 | 0 |
+
+### 1.4.2 Observations
+1. Both datasets contain 6,500 records, suggesting they cover the same number of customers.
+2. Both datasets have no missing values.
+3. Neither dataset contains duplicate rows.
+4. `customer_id` is available in both datasets, so we can use it as the merging key.
+5. `registration_event` is currently stored as an object rather than a datetime data type.
+
+**Important**: We should not automatically convert or remove columns without considering the project requirements.
+
+## 1.5 Merge the datasets
+The project requires us to merge both datasets into a DataFrame named `churn_df`.
+
+We will use `customer_id` as the common column.
+
+### 1.5.1 Merge using customer_id
+```python
+# Merge the two datasets 
+churn_df = pd.merge(
+ telecom_demographics,
+ telecom_usage,
+ on='customer_id',
+ how='inner'
+)
+```
+
+**Why `how='inner'`?**
+
+An inner join keeps only customers whose `customer_id` exists in both datasets.
+
+Since both datasets contain 6,500 records, we expect the merged dataset to contain 6,500 records, assuming all customer IDs match.
+
+### 1.5.2 Inspect the merged dataset
+```python
+# Display the first five rows
+churn_df.head()
+```
+Output:
+| index | customer_id | telecom_partner | gender | age | state | city | pincode | registration_event | num_dependents | estimated_salary | calls_made | sms_sent | data_used | churn |
+|---:|---:|---|---|---:|---|---|---:|---|---:|---:|---:|---:|---:|---:|
+| 0 | 15169 | Airtel | F | 26 | Himachal Pradesh | Delhi | 667173 | 2020-03-16 | 4 | 85979 | 75 | 21 | 4532 | 1 |
+| 1 | 149207 | Airtel | F | 74 | Uttarakhand | Hyderabad | 313997 | 2022-01-16 | 0 | 69445 | 35 | 38 | 723 | 1 |
+| 2 | 148119 | Airtel | F | 54 | Jharkhand | Chennai | 549925 | 2022-01-11 | 2 | 75949 | 70 | 47 | 4688 | 1 |
+| 3 | 187288 | Reliance Jio | M | 29 | Bihar | Hyderabad | 230636 | 2022-07-26 | 3 | 34272 | 95 | 32 | 10241 | 1 |
+| 4 | 14016 | Vodafone | M | 45 | Nagaland | Bangalore | 188036 | 2020-03-11 | 4 | 34157 | 66 | 23 | 5246 | 1 |
+
+### 1.5.3 Check dimensions
+```python
+churn_df.shape
+```
+Output:
+```
+(6500, 14)
+```
+
+### 1.5.4 Check duplicate values
+```python
+# Check for duplicate customer IDs
+churn_df['customer_id'].duplicated().sum()
+```
+Output:
+```
+0
+```

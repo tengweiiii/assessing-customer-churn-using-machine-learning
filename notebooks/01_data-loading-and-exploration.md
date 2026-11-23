@@ -327,7 +327,7 @@ Output:
 ![Customer Churn Distribution](/images/customer-churn-distribution.png)
 
 ## 1.7 Identify categorical variables
-The project also requires us to identify categorical variables in churn_df.
+The project also requires us to identify categorical variables in `churn_df`.
 
 Categorical variables represent groups or labels rather than measurable numerical quantities.
 

@@ -37,6 +37,41 @@ Inspect the first 10 predictions:
 ```python
 logreg_pred[:10]
 ```
+
+Output:
+```
+array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+```
+
+## 4.2 Train Random Forest Classifier
+**What is Random Forest?**
+
+Random Forest is an ensemble learning algorithm that combines multiple decision trees to make predictions.
+
+Each tree makes its own prediction, and the forest combines their results to produce the final classification.
+
+It can capture more complex relationships between customer characteristics and churn behaviour.
+
+### 4.2.1 Initialize and train the model
+```python
+# Initialize Random Forest Classifier
+rf = RandomForestClassifier(random_state=42)
+
+# Train the model
+rf.fit(X_train, y_train)
+```
+
+### 4.2.2 Make predictions
+```python
+# Make predictions using Random Forest
+rf_pred = rf.predict(X_test)
+```
+
+Inspect the first 10 predictions:
+```python
+rf_pred[:10]
+```
+
 Output:
 ```
 array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])

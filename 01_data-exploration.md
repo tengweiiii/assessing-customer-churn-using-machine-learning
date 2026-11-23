@@ -80,6 +80,7 @@ Usage shape: (6500, 5)
 telecom_demographics.info()
 ```
 Output:
+```
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 6500 entries, 0 to 6499
 Data columns (total 10 columns):
@@ -97,11 +98,13 @@ Data columns (total 10 columns):
  9   estimated_salary    6500 non-null   int64 
 dtypes: int64(5), object(5)
 memory usage: 507.9+ KB
+```
 
 ```python
 telecom_usage.info()
 ```
 Output:
+```
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 6500 entries, 0 to 6499
 Data columns (total 5 columns):
@@ -114,6 +117,7 @@ Data columns (total 5 columns):
  4   churn        6500 non-null   int64
 dtypes: int64(5)
 memory usage: 254.0 KB
+```
 
 ### 1.3.4 Check missing values
 ```python

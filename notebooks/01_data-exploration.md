@@ -323,3 +323,4 @@ Output:
 ```
 <AxesSubplot: title={'center': 'Customer Churn Distribution'}, xlabel='Churn Status', ylabel='Number of Customers'>
 ```
+![Customer Churn Distribution](images/customer-churn-distribution.png)

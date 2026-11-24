@@ -123,7 +123,7 @@ For class 1 (churned customers):
 - Recall = 0.00: Both models failed to identify any of the 261 actual churned customers.
 - F1-score = 0.00: The models have no effectiveness in identifying churned customers based on this metric.
 
-- ### 6.5.3 Why is accuracy still approximately 80%?
+### 6.5.3 Why is accuracy still approximately 80%?
 The dataset is imbalanced:
 - 79.95% of customers did not churn.
 - 20.05% of customers churned.
